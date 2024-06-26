@@ -13,6 +13,7 @@ export const loginController = async(req, res, next) =>{
             httpOnly: true,
             secure: true,
             sameSite: 'None',
+            domain: 'https://datn-yke9.onrender.com',
             path: "/",
         }).status(200).send(token.user)
     } catch (error) {
