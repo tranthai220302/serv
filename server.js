@@ -38,7 +38,7 @@ app.use(bodyParser.json())
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
-  origin: 'https://tamgiangg.onrender.com',
+  origin: 'http://localhost:3000',
   credentials: true
 }));
 const port = process.env.PORT
@@ -50,14 +50,14 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 
-await db.sequelize.sync({
-    alter: true,
-    logging : ()=>{}
-}).then(()=>{
-    console.log('Update database success')
-})
-await getClazzs();
-await getTeachers();
+// await db.sequelize.sync({
+//     alter: true,
+//     logging : ()=>{}
+// }).then(()=>{
+//     console.log('Update database success')
+// })
+// await getClazzs();
+// await getTeachers();
 //api
 app.use('/api/auth', routerAuth)
 app.use('/api/user', routerUser)
