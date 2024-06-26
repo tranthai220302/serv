@@ -29,7 +29,7 @@ export const getBesTimeTableService = async(isMorning) => {
                 })
                 if(item){
                     console.log(item.id)
-                    data[`${day}-${order}`] = JSON.parse(item.data)
+                    data[`${day}-${order}`] = item.data
                 }
             }
         }
