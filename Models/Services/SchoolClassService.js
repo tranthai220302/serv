@@ -1,6 +1,7 @@
 import Api from "../../ultis/Api.js";
 import db from "../Entitys/index.js";
 import algoliasearch from "algoliasearch";
+import { getBesTimeTableService } from "./ScheduleService.js";
 
 export const getClazzs = async () => {
     try {
@@ -57,13 +58,7 @@ export const searchClazzService = async (search) => {
 export const getScheduleByClazzService  = async(isMorning) =>{
     try {
         let schedule = {};
-        const timeTable = await db.bestTimeTable.findOne({
-            where : {
-                isMorning : isMorning
-            },
-            order : [['createdAt', 'DESC']]
-        })
-        const bestTimeTable = JSON.parse(timeTable.data)
+        const bestTimeTable = await getBesTimeTableService(isMorning);
         return bestTimeTable;
         // for (let day = Api.FIRST_DAY; day <= Api.LAST_DAY; day++) {
         //     for (let order = Api.FIRST_ORDER; order <= Api.LAST_ORDER; order++) {

@@ -59,9 +59,7 @@ class GeneticAlgorithmService {
           },
         ],
       });
-      console.log(this.dateStart)
       if (this.dateStart != "null") {
-        console.log('cc111');
         const validDate = moment(this.dateStart, "DD-MM-YYYY", true).isValid()
           ? moment(this.dateStart, "DD-MM-YYYY").toISOString()
           : this.dateStart;
@@ -774,10 +772,21 @@ class GeneticAlgorithmService {
       }
     }
 
-    await db.bestTimeTable.create({
-      data: this.bestTimeTable,
+    let bestTimeTable = await db.bestTimeTable.create({
+      data: 'no',
       isMorning: isMorning,
     });
+    for (let day = Api.FIRST_DAY; day <= Api.LAST_DAY; day++) {
+      for (let order = Api.FIRST_ORDER; order <= Api.LAST_ORDER; order++) {
+        let data = this.bestTimeTable[`${day}-${order}`];
+        await db.bestTimeTableItem.create({
+          BestTimeTableId : bestTimeTable.id,
+          data : data,
+          key : `${day}-${order}`
+        })
+      }
+    }
+
   }
 
   fitness() {

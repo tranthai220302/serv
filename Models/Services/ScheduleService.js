@@ -3,16 +3,43 @@ import createError from "../../ultis/createError.js";
 import db from "../Entitys/index.js";
 import { Op} from "sequelize";
 import Api from "../../ultis/Api.js";
-export const getTimeTableByTeacherService = async(isMorning) =>{
-    try {
 
+export const getBesTimeTableService = async(isMorning) => {
+    try {
         const timeTable = await db.bestTimeTable.findOne({
             where : {
                 isMorning : isMorning
             },
             order : [['createdAt', 'DESC']]
         })
-        const bestTimeTable = JSON.parse(timeTable.data)
+        let data = {};
+        for (let day = Api.FIRST_DAY; day <= Api.LAST_DAY; day++) {
+            for (let order = Api.FIRST_ORDER; order <= Api.LAST_ORDER; order++) {
+                let item = await db.bestTimeTableItem.findOne({
+                    where : {
+                        [Op.and] : [
+                            {
+                                BestTimeTableId : timeTable.id
+                            },
+                            {
+                                key : `${day}-${order}`
+                            }
+                        ]
+                    }
+                })
+                if(item){
+                    data[`${day}-${order}`] = JSON.parse(item.data)
+                }
+            }
+        }
+        return data;
+    } catch (error) {
+        return error;
+    }
+}
+export const getTimeTableByTeacherService = async(isMorning) =>{
+    try {
+        const bestTimeTable = await getBesTimeTableService(isMorning);
         // for (let day = Api.FIRST_DAY; day <= Api.LAST_DAY; day++) {
         //     for (let order = Api.FIRST_ORDER; order <= Api.LAST_ORDER; order++) {
         //         if((day == 2 && order == 1 )|| (day == 7 && order == 5))
@@ -151,7 +178,7 @@ export const getTimeTableService = async(isMorning) => {
             },
             order : [['createdAt', 'DESC']]
         })
-        const bestTimeTable = JSON.parse(timeTable.data)
+        const bestTimeTable = await getBesTimeTableService(isMorning);
         return bestTimeTable;
     } catch (error) {
         return error;

@@ -8,7 +8,6 @@ const BestTimeTable = (sequelize) => sequelize.define('BestTimeTable', {
     },
     data: {
       type: DataTypes.JSON, // hoặc sử dụng DataTypes.TEXT nếu muốn lưu dạng văn bản
-      allowNull: false,
     },
     isMorning : {
       type : DataTypes.BOOLEAN,

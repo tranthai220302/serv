@@ -17,6 +17,7 @@ import BestTimeTable from "./BestTimeTable.js";
 import Reason from "./Reason.js";
 import Grade from "./Grade.js";
 import Regulations from "./Regulations.js";
+import BestTimeTableItem from "./BestTimeTableItem.js";
 const sequelize = new Sequelize(
     configdb.DB,
     configdb.USER,
@@ -36,7 +37,9 @@ const sequelize = new Sequelize(
     }
 );
 const db = {}
+
 db.sequelize = sequelize
+db.bestTimeTableItem = BestTimeTableItem(sequelize);
 db.reason = Reason(sequelize);
 db.user = User(sequelize);
 db.timeSlot = TimeSlot(sequelize);
@@ -103,4 +106,7 @@ db.subject.belongsToMany(db.grade, { through: db.regulation });
 
 db.schoolClass.belongsTo(db.grade);
 db.grade.hasMany(db.schoolClass);
+
+db.bestTimeTableItem.belongsTo(db.bestTimeTable);
+db.bestTimeTable.hasMany(db.bestTimeTable);
 export default db;
