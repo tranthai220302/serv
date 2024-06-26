@@ -183,8 +183,10 @@ class GeneticAlgorithmService {
               (day == 4 &&
                 order == 5 &&
                 lesson.SchoolClass.name.includes("10")) ||
-              (day == 6 && order == 5 && lesson.SchoolClass.name.includes("10"))
+              (day == 6 && order == 5 && lesson.SchoolClass.name.includes("10")
+            )
             ) {
+              console.log(lesson.SchoolClass.name);
             } else if (
               lesson.SchoolClass?.isMorning &&
               lesson.Subject.name != "Thể dục" &&
@@ -235,6 +237,15 @@ class GeneticAlgorithmService {
               continue;
             }
             if (
+              (day == 3 &&
+                order == 5 &&
+                lesson.SchoolClass.name.includes("10")) ||
+              (day == 4 &&
+                order == 5 &&
+                lesson.SchoolClass.name.includes("10")) ||
+              (day == 6 && order == 5 && lesson.SchoolClass.name.includes("10")
+            )
+            ){}else if (
               ((day == 3 && order == 5) ||
                 (day == 5 && (order == 3 || order == 4 || order == 5))) &&
               lesson.SchoolClass.name.includes("11")
