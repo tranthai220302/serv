@@ -38,7 +38,7 @@ app.use(bodyParser.json())
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://tamgiangg.onrender.com',
   credentials: true
 }));
 const port = process.env.PORT
