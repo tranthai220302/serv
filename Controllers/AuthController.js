@@ -13,7 +13,7 @@ export const loginController = async(req, res, next) =>{
             httpOnly: true,
             secure: true,
             sameSite: 'None',
-            domain: 'https://datn-yke9.onrender.com',
+            domain: 'www.harumi.site',
             path: "/",
         }).status(200).send(token.user)
     } catch (error) {
