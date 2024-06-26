@@ -13,7 +13,7 @@ export const loginController = async(req, res, next) =>{
             httpOnly: true,
             secure: true,
             sameSite: 'None',
-            domain: 'www.harumi.site',
+            domain: 'www.harumi.store',
             path: "/",
         }).status(200).send(token.user)
     } catch (error) {
